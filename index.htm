@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="src/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="src/css/bootstrap.css" />
+  </head>
+
+  <body>
+    <div id="mapdiv" class="col-md-9"></div>
+    <div id="side-bar">
+      <button id="btnLocate" class="btn btn-primary btn-block">Locate</button>
+      <button id="btnZocalo" class="btn btn-primary btn-block">ZoomToZocalo</button>
+      <h4>Zoom Level: <span id="zoom-level"></span></h4>
+      <h4>Map Center: <span id="map-center"></span></h4>
+      <h4>Mouse Location: <span id="mouse-location"></span></h4>
+    </div>
+  </body>
+</html>
+<script src="src/leaflet-src.js"></script>
+<script src="src/jquery-3.2.0.min.js"></script>
+<script src="map/map.js"></script>
