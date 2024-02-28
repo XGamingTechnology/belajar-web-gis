@@ -12,7 +12,7 @@ let ctlEasybutton;
 let ctlSidebar;
 let ctlSearch;
 
-mymap = L.map("mapdiv", { center: [19.4, -99.2], zoom: 13 });
+mymap = L.map("mapdiv", { center: [19.4, -99.2], zoom: 13, zoomControl: false, attributionControl: false });
 lyrOSM = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
 mymap.addLayer(lyrOSM);
 
