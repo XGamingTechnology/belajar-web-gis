@@ -2,20 +2,42 @@ let mymap;
 let lyrOSM;
 let mrkCurrentLocation;
 let popZocalo;
-let popExample;
+let ctlAttribute;
+let ctlScale;
+let ctlPan;
+let ctlZoomslider;
+let ctlMouseposition;
+let ctlMeasure;
+let ctlEasybutton;
+let ctlSidebar;
+let ctlSearch;
 
 mymap = L.map("mapdiv", { center: [19.4, -99.2], zoom: 13 });
 lyrOSM = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
 mymap.addLayer(lyrOSM);
 
+ctlPan = L.control.pan().addTo(mymap);
+ctlZoomslider = L.control.zoomslider({ position: "topright" }).addTo(mymap);
+
+ctlMeasure = L.control.polylineMeasure().addTo(mymap);
+ctlSidebar = L.control.sidebar("side-bar").addTo(mymap);
+
+ctlEasybutton = L.easyButton("glyphicon-transfer", function () {
+  ctlSidebar.toggle();
+}).addTo(mymap);
+
+ctlSearch = L.Control.openCageSearch({ key: "3c38d15e76c02545181b07d3f8cfccf0", limit: 10 }).addTo(mymap);
+
+ctlAttribute = L.control.attribution({ position: "bottomleft" }).addTo(mymap);
+ctlAttribute.addAttribution("OSM");
+ctlAttribute.addAttribution('&copy; <a href="http://millermountain.com">Miller Mountain LLC</a>');
+
+ctlScale = L.control.scale({ position: "bottomleft", metric: false, maxWidth: 200 }).addTo(mymap);
+ctlMouseposition = L.control.mousePosition().addTo(mymap);
+
 popZocalo = L.popup({ maxWidth: 200, keepInView: true });
 popZocalo.setLatLng([19.43262, -99.13325]);
 popZocalo.setContent("<h2>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
-
-popExample = L.popup();
-popExample.setLatLng([19.4132, -99.1859]);
-popExample.setContent($("#side-bar")[0]);
-popExample.openOn(mymap);
 
 mymap.on("click", function (e) {
   if (e.originalEvent.shiftKey) {
@@ -26,7 +48,7 @@ mymap.on("click", function (e) {
 });
 
 mymap.on("contextmenu", function (e) {
-  var dtCurrentTime = new Date();
+  let dtCurrentTime = new Date();
   L.marker(e.latlng)
     .addTo(mymap)
     .bindPopup(e.latlng.toString() + "<br>" + dtCurrentTime.toString());
