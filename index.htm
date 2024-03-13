@@ -25,10 +25,13 @@
       <h4>Zoom Level: <span id="zoom-level"></span></h4>
       <h4>Map Center: <span id="map-center"></span></h4>
       <h4>Mouse Location: <span id="mouse-location"></span></h4>
+      <h4>Image Opacity: <span id="image-opacity">0.5</span></h4>
+      <input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="0.5" />
     </div>
   </body>
 </html>
 <script src="src/leaflet-src.js"></script>
+
 <script src="src/jquery-3.2.0.min.js"></script>
 <script src="src/plugins/L.Control.Pan.js"></script>
 <script src="src/plugins/L.Control.Zoomslider.js"></script>
@@ -37,4 +40,5 @@
 <script src="src/plugins/Leaflet.PolylineMeasure.js"></script>
 <script src="src/plugins/easy-button.js"></script>
 <script src="src/plugins/leaflet-opencage/src/js/L.Control.OpenCageSearch.js"></script>
+<script src="src/plugins/leaflet-providers.js"></script>
 <script src="map/map.js"></script>

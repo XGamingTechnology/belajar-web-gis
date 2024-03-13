@@ -11,10 +11,40 @@ let ctlMeasure;
 let ctlEasybutton;
 let ctlSidebar;
 let ctlSearch;
+let objBasemaps;
+let objOverlays;
 
 mymap = L.map("mapdiv", { center: [19.4, -99.2], zoom: 13, zoomControl: false, attributionControl: false });
-lyrOSM = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
+
+lyrOSM = L.tileLayer.provider("OpenStreetMap.Mapnik");
+lyrTopo = L.tileLayer.provider("OpenTopoMap");
+lyrImagery = L.tileLayer.provider("Esri.WorldImagery");
+lyrOutdoors = L.tileLayer.provider("Thunderforest.Outdoors");
+lyrWatercolor = L.tileLayer.provider("Stamen.Watercolor");
 mymap.addLayer(lyrOSM);
+
+lyrChapultepec = L.imageOverlay(
+  "img/chapultepec.png",
+  [
+    [19.42993, -99.20843],
+    [19.40621, -99.17453],
+  ],
+  { opacity: 0.5 }
+).addTo(mymap);
+
+objBasemaps = {
+  "Open Street Maps": lyrOSM,
+  "Topo Map": lyrTopo,
+  Imagery: lyrImagery,
+  Outdoors: lyrOutdoors,
+  Watercolor: lyrWatercolor,
+};
+
+objOverlays = {
+  "Chapultepec Image": lyrChapultepec,
+};
+
+ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
 
 ctlPan = L.control.pan().addTo(mymap);
 ctlZoomslider = L.control.zoomslider({ position: "topright" }).addTo(mymap);
@@ -39,13 +69,13 @@ popZocalo = L.popup({ maxWidth: 200, keepInView: true });
 popZocalo.setLatLng([19.43262, -99.13325]);
 popZocalo.setContent("<h2>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
 
-mymap.on("click", function (e) {
-  if (e.originalEvent.shiftKey) {
-    alert(mymap.getZoom());
-  } else {
-    alert(e.latlng.toString());
-  }
-});
+// mymap.on("click", function (e) {
+//   if (e.originalEvent.shiftKey) {
+//     alert(mymap.getZoom());
+//   } else {
+//     alert(e.latlng.toString());
+//   }
+// });
 
 mymap.on("contextmenu", function (e) {
   let dtCurrentTime = new Date();
@@ -93,6 +123,11 @@ $("#btnLocate").click(function () {
 $("#btnZocalo").click(function () {
   mymap.setView([19.43262, -99.13325], 17);
   mymap.openPopup(popZocalo);
+});
+
+$("#sldOpacity").on("change", function () {
+  $("#image-opacity").html(this.value);
+  lyrChapultepec.setOpacity(this.value);
 });
 
 function LatLngToArrayString(ll) {
