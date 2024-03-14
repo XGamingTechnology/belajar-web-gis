@@ -77,6 +77,33 @@ popZocalo.setContent("<h2>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
 //   }
 // });
 
+popZocalo = L.popup({ maxWidth: 200, keepInView: true });
+popZocalo.setLatLng([19.43262, -99.13325]);
+popZocalo.setContent("<h2>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
+
+mrkMuseo = L.marker([19.42596, -99.1862], { draggable: true }).addTo(mymap);
+mrkMuseo.bindTooltip("Anthroology Museum");
+
+plnBikeRoute = L.polyline(
+  [
+    [
+      [19.4138, -99.1876],
+      [19.4167, -99.188],
+      [19.4165, -99.1873],
+      [19.4214, -99.1872],
+      [19.4215, -99.1841],
+      [19.4258, -99.1843],
+      [19.4259, -99.1852],
+    ],
+    [
+      [19.4215, -99.1865],
+      [19.4251, -99.1881],
+      [19.4246, -99.1843],
+    ],
+  ],
+  { color: "red" }
+).addTo(mymap);
+
 mymap.on("contextmenu", function (e) {
   let dtCurrentTime = new Date();
   L.marker(e.latlng)
@@ -116,6 +143,10 @@ mymap.on("mousemove", function (e) {
   $("#mouse-location").html(LatLngToArrayString(e.latlng));
 });
 
+mrkMuseo.on("dragend", function () {
+  mrkMuseo.setTooltipContent("Current Location: " + mrkMuseo.getLatLng().toString() + "<br>" + "Distance to Anthropology Museum: " + mrkMuseo.getLatLng().distanceTo([19.42596, -99.1862]).toFixed(0));
+});
+
 $("#btnLocate").click(function () {
   mymap.locate();
 });
@@ -123,6 +154,16 @@ $("#btnLocate").click(function () {
 $("#btnZocalo").click(function () {
   mymap.setView([19.43262, -99.13325], 17);
   mymap.openPopup(popZocalo);
+});
+
+$("#btnMuseo").click(function () {
+  mymap.setView([19.42596, -99.1862], 17);
+  mrkMuseo.setLatLng([19.42596, -99.1862]);
+  mrkMuseo.setTooltipContent("Anthropology Museum");
+});
+
+$("#btnBikeRoute").click(function () {
+  mymap.fitBounds(plnBikeRoute.getBounds());
 });
 
 $("#sldOpacity").on("change", function () {
