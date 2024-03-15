@@ -11,6 +11,9 @@ let ctlMeasure;
 let ctlEasybutton;
 let ctlSidebar;
 let ctlSearch;
+let ctlLayers;
+let ctlDraw;
+let ctlStyle;
 let objBasemaps;
 let objOverlays;
 
@@ -40,8 +43,65 @@ objBasemaps = {
   Watercolor: lyrWatercolor,
 };
 
+mrkMuseo = L.marker([19.42596, -99.1862], { draggable: true });
+mrkMuseo.bindTooltip("Anthropology Museum");
+
+plyParks = L.polygon(
+  [
+    [
+      [
+        [19.4068, -99.2015],
+        [19.4166, -99.1803],
+        [19.4299, -99.1825],
+        [19.4191, -99.2056],
+      ],
+      [
+        [19.4216, -99.1853],
+        [19.4217, -99.1843],
+        [19.4241, -99.1848],
+        [19.4245, -99.1872],
+      ],
+    ],
+    [
+      [
+        [19.4042, -99.1895],
+        [19.405, -99.1884],
+        [19.4076, -99.1898],
+        [19.4055, -99.1909],
+      ],
+    ],
+  ],
+  { color: "red", fillColor: "yellow", fillOpacity: 0.8 }
+);
+
+plnBikeRoute = L.polyline(
+  [
+    [
+      [19.4138, -99.1876],
+      [19.4167, -99.188],
+      [19.4165, -99.1873],
+      [19.4214, -99.1872],
+      [19.4215, -99.1841],
+      [19.4258, -99.1843],
+      [19.4259, -99.1852],
+    ],
+    [
+      [19.4215, -99.1865],
+      [19.4251, -99.1881],
+      [19.4246, -99.1843],
+    ],
+  ],
+  { color: "purple" }
+);
+
+fgpChapultepec = L.featureGroup([plnBikeRoute, plyParks]).addTo(mymap);
+fgpDrawnItems = new L.FeatureGroup();
+fgpDrawnItems.addTo(mymap);
+
 objOverlays = {
   "Chapultepec Image": lyrChapultepec,
+  "Chapultepec Vectors": fgpChapultepec,
+  "Drawn Items": fgpDrawnItems,
 };
 
 ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
@@ -64,6 +124,24 @@ ctlAttribute.addAttribution('&copy; <a href="http://millermountain.com">Miller M
 
 ctlScale = L.control.scale({ position: "bottomleft", metric: false, maxWidth: 200 }).addTo(mymap);
 ctlMouseposition = L.control.mousePosition().addTo(mymap);
+
+ctlStyle = L.control.styleEditor({ position: "topright" }).addTo(mymap);
+
+ctlDraw = new L.Control.Draw({
+  draw: {
+    circle: false,
+  },
+  edit: {
+    featureGroup: fgpDrawnItems,
+  },
+});
+ctlDraw.addTo(mymap);
+
+mymap.on("draw:created", function (e) {
+  console.log(e);
+  fgpDrawnItems.addLayer(e.layer);
+  alert(JSON.stringify(e.layer.toGeoJSON()));
+});
 
 popZocalo = L.popup({ maxWidth: 200, keepInView: true });
 popZocalo.setLatLng([19.43262, -99.13325]);
@@ -171,6 +249,19 @@ $("#sldOpacity").on("change", function () {
   lyrChapultepec.setOpacity(this.value);
 });
 
+$("#btnColor").click(function () {
+  fgpChapultepec.setStyle({ color: "purple", fillColor: "green", fillOpacity: 0.8 });
+});
+
+$("#btnAddMuseo").click(function () {
+  if (fgpChapultepec.hasLayer(mrkMuseo)) {
+    fgpChapultepec.removeLayer(mrkMuseo);
+    $("#btnAddMuseo").html("Add Museo To Chapultepec Vectors");
+  } else {
+    fgpChapultepec.addLayer(mrkMuseo);
+    $("#btnAddMuseo").html("Remove Museo From Chapultepec Vectors");
+  }
+});
 function LatLngToArrayString(ll) {
   console.log(ll);
   return "[" + ll.lat.toFixed(5) + ", " + ll.lng.toFixed(5) + "]";

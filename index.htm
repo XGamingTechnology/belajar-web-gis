@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="src/plugins/Leaflet.PolylineMeasure.css" />
     <link rel="stylesheet" href="src/plugins/easy-button.css" />
     <link rel="stylesheet" href="src/plugins/leaflet-opencage/src/css/L.Control.OpenCageSearch.css" />
+    <link rel="stylesheet" href="src/plugins/leaflet-styleeditor/css/Leaflet.StyleEditor.css" />
   </head>
 
   <body>
@@ -24,6 +25,8 @@
       <button id="btnZocalo" class="btn btn-primary btn-block">ZoomToZocalo</button>
       <button id="btnMuseo" class="btn btn-primary btn-block">Zoom To Anthropology Museum</button>
       <button id="btnBikeRoute" class="btn btn-primary btn-block">Zoom To Bike Route</button>
+      <button id="btnAddMuseo" class="btn btn-primary btn-block">Add Museum to Vector Group</button>
+      <button id="btnColor" class="btn btn-primary btn-block">Change Color</button>
       <h4>Zoom Level: <span id="zoom-level"></span></h4>
       <h4>Map Center: <span id="map-center"></span></h4>
       <h4>Mouse Location: <span id="mouse-location"></span></h4>
@@ -43,4 +46,42 @@
 <script src="src/plugins/easy-button.js"></script>
 <script src="src/plugins/leaflet-opencage/src/js/L.Control.OpenCageSearch.js"></script>
 <script src="src/plugins/leaflet-providers.js"></script>
+<script src="src/plugins/leaflet-styleeditor/javascript/Leaflet.StyleEditor.js"></script>
+<script src="src/plugins/leaflet-styleeditor/javascript/Leaflet.StyleForms.js"></script>
+<script src="src/plugins/leaflet-draw/Leaflet.draw.js"></script>
+<script src="src/plugins/leaflet-draw/Leaflet.Draw.Event.js"></script>
+<link rel="stylesheet" href="src/plugins/leaflet-draw/leaflet.draw.css" />
+
+<script src="src/plugins/leaflet-draw/Toolbar.js"></script>
+<script src="src/plugins/leaflet-draw/Tooltip.js"></script>
+
+<script src="src/plugins/leaflet-draw/ext/GeometryUtil.js"></script>
+<script src="src/plugins/leaflet-draw/ext/LatLngUtil.js"></script>
+<script src="src/plugins/leaflet-draw/ext/LineUtil.Intersect.js"></script>
+<script src="src/plugins/leaflet-draw/ext/Polygon.Intersect.js"></script>
+<script src="src/plugins/leaflet-draw/ext/Polyline.Intersect.js"></script>
+<script src="src/plugins/leaflet-draw/ext/TouchEvents.js"></script>
+
+<script src="src/plugins/leaflet-draw/draw/DrawToolbar.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Feature.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.SimpleShape.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Polyline.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Circle.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Marker.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Polygon.js"></script>
+<script src="src/plugins/leaflet-draw/draw/handler/Draw.Rectangle.js"></script>
+
+<script src="src/plugins/leaflet-draw/edit/EditToolbar.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/EditToolbar.Edit.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/EditToolbar.Delete.js"></script>
+
+<script src="src/plugins/leaflet-draw/Control.Draw.js"></script>
+
+<script src="src/plugins/leaflet-draw/edit/handler/Edit.Poly.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/Edit.SimpleShape.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/Edit.Circle.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/Edit.Rectangle.js"></script>
+<script src="src/plugins/leaflet-draw/edit/handler/Edit.Marker.js"></script>
+
+<!--    **************  End of Lealet Draw-->
 <script src="map/map.js"></script>
